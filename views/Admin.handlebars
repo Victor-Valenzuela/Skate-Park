@@ -1,0 +1,72 @@
+<div class="py-4">
+  <h2>Administración</h2>
+  <hr class="w-50 m-auto" />
+
+  <table class="table w-50 m-auto mb-3">
+    <thead>
+      <tr class="">
+        <th scope="col">#</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Años de experiencia</th>
+        <th scope="col">Especialidad</th>
+        <th scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody id='cuerpo'>
+      <tr>
+        <th scope="row">1</th>
+        <td class="py-3">
+          <div class="mx-auto"></div>
+        </td>
+        <td>Tony Hawk</td>
+        <td>12</td>
+        <td>Kickflip</td>
+        <td><input type="checkbox" checked /></td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td class="py-3">
+          <div class="mx-auto"></div>
+        </td>
+        <td>Evelien Bouilliart</td>
+        <td>10</td>
+        <td>Heelflip</td>
+        <td><input type="checkbox" checked /></td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td class="py-3">
+          <div class="mx-auto"></div>
+        </td>
+        <td>Danny Way</td>
+        <td>8</td>
+        <td>Ollie</td>
+        <td><input type="checkbox" /></td>
+      </tr>
+      {{#each usuarios}}
+      <tr>
+        <th>{{math @index "+" 4}}</th>
+        <td><img src='/uploads/{{this.foto}}' style='height: 60px;width: 60px;'></td>
+        <td>{{this.nombre}}</td>
+        <td>{{this.anos_experiencia}}</td>
+        <td>{{this.especialidad}}</td>
+        <td><input type='checkbox' {{#if this.estado}} checked {{/if}} onclick='changeStatus({{this.id}},this)'></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <a href="/">Lista de participantes</a>
+</div>
+
+
+<script>
+  const changeStatus = async (id, e) => {
+    const estado = e.checked
+    await axios.put("/habilitar", {
+      id,
+      estado
+    })
+    alert(estado ? "Usuario activado" : "Usuario desactivado")
+  }
+</script>
